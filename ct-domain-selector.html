@@ -39,7 +39,8 @@ Element for selecting a domain to sign in to
       debounce-duration="300"
     ></iron-ajax>
 
-    <paper-material elevation="1" class="layout horizontal center-justified">
+    <div class="layout horizontal center-justified">
+    <paper-material elevation="1" class="layout vertical center-justified">
       <h2 class="layout horizontal center-justified">Welcome to Centular Domains</h2>
       <paper-material elevation="1" class="layout vertical center-justified">
         <a class="layout horizontal center-justified">Select the company you wish to sign-in to</a>
@@ -55,7 +56,7 @@ Element for selecting a domain to sign in to
         <paper-button id="selectButton" toggles raised on-tap="_select" disabled>Let's go</paper-button>
       </paper-material>
     </paper-material>
-
+    </div>
   </template>
 
   <script>
