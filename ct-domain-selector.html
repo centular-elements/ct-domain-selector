@@ -22,6 +22,7 @@ Element for selecting a domain to sign in to
       }
       paper-material {
         padding: 10px;
+        max-width: 300px;
       }
       paper-button {
         color: white;
@@ -63,16 +64,16 @@ Element for selecting a domain to sign in to
       is: 'ct-domain-selector',
 
       properties: {
-        clientId: String,
+        cid: String,
         next: String
       },
 
       observers: [
-        '_loadDomains(clientId, next)',
+        '_loadDomains(cid, next)',
       ],
 
       _loadDomains: function() {
-        this.$.getDomainsRequest.set( 'params', { "client_id": this.clientId });
+        this.$.getDomainsRequest.set( 'params', { "client_id": this.cid });
         this.$.getDomainsRequest.generateRequest();
       },
 
@@ -86,7 +87,7 @@ Element for selecting a domain to sign in to
       },
 
       _select: function() {
-        window.location = this.next + '&client_id=' + this.clientId + '-' + this._selectedDomain.did;
+        window.location = this.next + '&client_id=' + this.cid + '-' + this._selectedDomain.did;
       }
     });
   </script>
