@@ -1,4 +1,11 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-button/paper-button.html">
 
 <!--
 `ct-domain-selector`
@@ -9,12 +16,45 @@ Element for selecting a domain to sign in to
 
 <dom-module id="ct-domain-selector">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
       }
+      paper-material {
+        padding: 10px;
+      }
+      paper-button {
+        color: white;
+        background-color: #0077aa;
+      }
     </style>
-    <h2>Hello [[prop1]]</h2>
+
+    <iron-ajax
+      id="getDomainsRequest"
+      method="GET"
+      url="http://0.0.0.0:9000/domains"
+      handle-as="json"
+      on-response="_handleResponse"
+      debounce-duration="300"
+    ></iron-ajax>
+
+    <paper-material elevation="1" class="layout vertical horizontal center-justified">
+      <h2 class="layout horizontal center-justified">Welcome to Centular Domains</h2>
+      <paper-material elevation="1" class="layout vertical center-justified">
+        <a class="layout horizontal center-justified">Select the company you wish to sign-in to</a>
+        <paper-dropdown-menu label="Company">
+          <paper-listbox id="list" class="dropdown-content" on-iron-select="_setSelectedDomain">
+            <template is="dom-repeat" items="[[ _domains ]]" as="domain">
+              <paper-item domain="[[ domain ]]">
+                <span>[[domain.company]] ([[ domain.name ]])</span>
+              </paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-button id="selectButton" toggles raised on-tap="_select" disabled>Let's go</paper-button>
+      </paper-material>
+    </paper-material>
+
   </template>
 
   <script>
@@ -23,12 +63,31 @@ Element for selecting a domain to sign in to
       is: 'ct-domain-selector',
 
       properties: {
-        prop1: {
-          type: String,
-          value: 'ct-domain-selector',
-        },
+        clientId: String,
+        next: String
       },
 
+      observers: [
+        '_loadDomains(clientId, next)',
+      ],
+
+      _loadDomains: function() {
+        this.$.getDomainsRequest.set( 'params', { "client_id": this.clientId });
+        this.$.getDomainsRequest.generateRequest();
+      },
+
+      _handleResponse: function (data) {
+        this._domains = data.detail.response;
+      },
+
+      _setSelectedDomain: function(event, detail) {
+        this._selectedDomain = detail.item.domain;
+        this.$.selectButton.disabled = false;
+      },
+
+      _select: function() {
+        window.location = this.next + '&client_id=' + this.clientId + '-' + this._selectedDomain.did;
+      }
     });
   </script>
 </dom-module>

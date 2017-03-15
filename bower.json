@@ -3,7 +3,14 @@
   "description": "Element for selecting a domain to sign in to",
   "main": "ct-domain-selector.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0"
+    "polymer": "Polymer/polymer#^1.4.0",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.3.2",
+    "paper-material": "PolymerElements/paper-material#^1.0.6",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.5.0",
+    "paper-button": "PolymerElements/paper-button#^1.0.14",
+    "paper-listbox": "PolymerElements/paper-listbox#^1.1.2",
+    "paper-item": "PolymerElements/paper-item#^1.2.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
