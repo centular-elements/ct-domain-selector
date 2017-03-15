@@ -22,7 +22,10 @@ Element for selecting a domain to sign in to
       }
       paper-material {
         padding: 10px;
-        max-width: 350px;
+        max-width: 400px;
+      }
+      .box {
+        margin: 100px;
       }
       paper-button {
         color: white;
@@ -39,23 +42,23 @@ Element for selecting a domain to sign in to
       debounce-duration="300"
     ></iron-ajax>
 
-    <div class="layout horizontal center-justified">
-    <paper-material elevation="1" class="layout vertical center-justified">
-      <h2 class="layout horizontal center-justified">Welcome to Centular Domains</h2>
+    <div class="layout horizontal center-justified box">
       <paper-material elevation="1" class="layout vertical center-justified">
-        <a class="layout horizontal center-justified">Select the company you wish to sign-in to</a>
-        <paper-dropdown-menu label="Company">
-          <paper-listbox id="list" class="dropdown-content" on-iron-select="_setSelectedDomain">
-            <template is="dom-repeat" items="[[ _domains ]]" as="domain">
-              <paper-item domain="[[ domain ]]">
-                <span>[[domain.company]] ([[ domain.name ]])</span>
-              </paper-item>
-            </template>
-          </paper-listbox>
-        </paper-dropdown-menu>
-        <paper-button id="selectButton" toggles raised on-tap="_select" disabled>Let's go</paper-button>
+        <h2 class="layout horizontal center-justified">Welcome to Centular Domains</h2>
+        <paper-material elevation="1" class="layout vertical center-justified">
+          <a class="layout horizontal center-justified">Select the company you wish to sign-in to</a>
+          <paper-dropdown-menu label="Company">
+            <paper-listbox id="list" class="dropdown-content" on-iron-select="_setSelectedDomain">
+              <template is="dom-repeat" items="[[ _domains ]]" as="domain">
+                <paper-item domain="[[ domain ]]">
+                  <span>[[domain.company]] ([[ domain.name ]])</span>
+                </paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+          <paper-button id="selectButton" toggles raised on-tap="_select" disabled>Let's go</paper-button>
+        </paper-material>
       </paper-material>
-    </paper-material>
     </div>
   </template>
 
